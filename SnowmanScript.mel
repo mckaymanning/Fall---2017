@@ -1,0 +1,125 @@
+//Build for the little snowman
+
+//Base Sphere
+polySphere -r 1 -sx 10 -sy 10 -ax 0 1 0;
+//Mid Sphere
+polySphere -r .9 -sx 10 -sy 10 -ax 0 1 0;
+move -r 0 .9 0;
+//Top Sphere
+polySphere -r .7 -sx 10 -sy 10 -ax 0 1 0;
+move - r 0 1.8 0;
+//Stick Arms Build, placement and Mirror
+polyCylinder -r .1 -h .75 -sx 10 -sy 1 -sz 1 -ax 0 1 0;
+move - r -1 1.25 0;
+rotate -r -ws -fo 30 0 60 ;
+select -r pCylinder1;
+polyMirrorFace  -cutMesh 0 -axis 0 -axisDirection 1 -mergeMode 1;
+// Eyes Build, placement and Mirror
+polySphere -r .125 -sx 10 -sy 10 -ax 0 1 0;
+move -r -.2 2 -.55;
+select pSphere4;
+polyMirrorFace  -cutMesh 0 -axis 0 -axisDirection 1 -mergeMode 1;
+//Mesh combine and rename to LittleSnowman
+select -r pSphere2 pSphere3 pSphere1 pSphere4 pCylinder1;
+polyUnite -ch 0 -mergeUVSets 1 -centerPivot -name littleSnowman;
+//Moving LittleSnowman Pivot point to base
+move -r 0 -1.75 -0.131182 littleSnowman.scalePivot littleSnowman.rotatePivot ;
+//Moving LittleSnowman out of the way
+move -r -10 0 0 littleSnowman;
+rotate -r -ws -fo 0 -180 0;
+
+//Build for the Big Snowman
+//Base Sphere
+polySphere -r 8 -sx 10 -sy 10 -ax 0 1 0;
+//Mid Sphere
+polySphere -r 6 -sx 10 -sy 10 -ax 0 1 0;
+move -r 0 10 2;
+//Top Sphere
+polySphere -r 4.5 -sx 10 -sy 19 -ax 1 0 0;
+move -r 0 17 6;
+//Mouth Creation
+select -r pSphere3.f[6:7] pSphere3.f[16] pSphere3.f[26] pSphere3.f[36] pSphere3.f[46] pSphere3.f[56] pSphere3.f[66] pSphere3.f[76] pSphere3.f[86] pSphere3.f[96] pSphere3.f[106] pSphere3.f[116] pSphere3.f[126] pSphere3.f[136] pSphere3.f[146] pSphere3.f[156] pSphere3.f[166:167] pSphere3.f[176:177] pSphere3.f[186:187] pSphere3.f[26:27] pSphere3.f[36:37] pSphere3.f[46:47] pSphere3.f[56:57] pSphere3.f[66:67] pSphere3.f[76:77] pSphere3.f[86:87] pSphere3.f[96:97] pSphere3.f[106:107] pSphere3.f[116:117] pSphere3.f[126:127] pSphere3.f[136:137] pSphere3.f[146:147] pSphere3.f[6:7] pSphere3.f[16:17] pSphere3.f[26:27] pSphere3.f[36:37] pSphere3.f[136:137] pSphere3.f[146:147] pSphere3.f[156:157] pSphere3.f[166:167] ;
+doDelete;
+select -add pSphere3.e[150:151] pSphere3.e[159:160] pSphere3.e[168:169] pSphere3.e[177:178] pSphere3.e[186:187] pSphere3.e[195:196] pSphere3.e[204:205] pSphere3.e[213:214] pSphere3.e[222:223] pSphere3.e[231:232] pSphere3.e[240:241] pSphere3.e[249:250] pSphere3.e[258:259] pSphere3.e[267:268] pSphere3.e[276:277] pSphere3.e[285:286] pSphere3.e[294:295] pSphere3.e[303:304] pSphere3.e[312:313] ;
+
+polyCloseBorder -ch 1 pSphere3.e[150:151] pSphere3.e[159:160] pSphere3.e[168:169] pSphere3.e[177:178] pSphere3.e[186:187] pSphere3.e[195:196] pSphere3.e[204:205] pSphere3.e[213:214] pSphere3.e[222:223] pSphere3.e[231:232] pSphere3.e[240:241] pSphere3.e[249:250] pSphere3.e[258:259] pSphere3.e[267:268] pSphere3.e[276:277] pSphere3.e[285:286] pSphere3.e[294:295] pSphere3.e[303:304] pSphere3.e[312:313];
+select -r pSphere3.f[152] ;
+polyExtrudeFacet -constructionHistory 1 -keepFacesTogether 1 -pvx 0 -pvy 16.00341547 -pvz 7.895616531 -divisions 1 -twist 0 -taper 1 -off 0 -thickness 0 -smoothingAngle 30 pSphere3.f[152];
+scale -oa -1.977593rad -1.256637rad -1.570796rad -r -p 0cm 16.003415cm 7.895617cm 0.166969 0.166969 0.166969 ;
+move -r -ls -wd -3.74025e-008 1.271954 -3.91467 ;
+select -r pSphere3;
+
+//Eyes
+polyCylinder -r .75 -h 1.25 -sx 10 -sy 1 -sz 1 -ax 0 0 1;
+move -r 1.5 19.5 9;
+rotate -r -ws -fo 15 0 0;
+select -r pCylinder1.f[0:4] pCylinder1.f[10:14] pCylinder1.f[20:24] ;
+doDelete;
+select -add pCylinder1.e[10:11] pCylinder1.e[16:17] pCylinder1.e[22:23] ;
+polyCloseBorder -ch 1 pCylinder1.e[10:11] pCylinder1.e[16:17] pCylinder1.e[22:23];
+select -r pCylinder1 ;
+polyMirrorFace  -cutMesh 0 -axis 0 -axisDirection 1 -mergeMode 1;
+
+//Arms
+polyCylinder -r .25 -h 12 -sx 10 -sy 5 -sz 1 -ax 0 1 0;
+move -r 0 -6 0 pCylinder2.scalePivot pCylinder2.rotatePivot ;
+move -r 5 18 2.5;
+rotate -r -ws -fo 25 0 -25;
+
+select -add pCylinder2.e[20:29] ;
+move -r .5 0 0;
+select -add pCylinder2.e[30:39] ;
+move -r .5 0 0;
+select -add pCylinder2.e[40:49] ;
+move -r -.5 0 0;
+select -r pCylinder2.vtx[50:59] pCylinder2.vtx[61] ;
+move -r 0 0 1;
+//Branches
+polyCylinder -r .2 -h 5 -sx 10 -sy 5 -sz 1 -ax 0 1 0;
+move -r 0 0 0 pCylinder3.scalePivot pCylinder3.rotatePivot ;
+move -r 9 18 6;
+rotate -r -ws -fo 30 -5 -52.5;
+
+select -add pCylinder3.e[20:29] ;
+move -r .5 0 0;
+select -add pCylinder3.e[30:39] ;
+move -r .5 0 0;
+select -add pCylinder3.e[40:49] ;
+move -r -.5 0 0;
+
+select -r pCylinder3;
+duplicate -rr;
+scale -r .75 .75 .75;
+move -r -1.5 -1 -1 pCylinder4.scalePivot pCylinder4.rotatePivot ;
+rotate -r -ws -fo -7.5 -75 0;
+
+//Combining Branches
+select -r pCylinder4 pCylinder3 pCylinder2;
+polyUnite -ch 0 -mergeUVSets 1 -centerPivot -name BranchArm;
+//Mirror Arms
+select BranchArm;
+polyMirrorFace  -cutMesh 0 -axis 0 -axisDirection 1 -mergeMode 1;
+move -r -8.148527 -4.945465 -2.495242 BranchArm.scalePivot BranchArm.rotatePivot;
+rotate -r -ws -fo 20 0 0;
+
+//Carrot Nose
+polyCone -r .5 -h 3 -sx 10 -sy 10 -sz 0 -ax 0 1 0;
+move -r 0 19 11;
+rotate -fo 90 0 0;
+
+
+select -add pCone1.e[70:79] ;
+move -r -.1 .05 0;
+select -add pCone1.e[30:39] ;
+move -r .075 .075 0;
+
+select -r pCone1 ;
+move -r 0 0 -2 pCone1.scalePivot pCone1.rotatePivot ;
+rotate -r -ws -fo 7.5 0 0;
+
+//Combining BigSnowman
+select -r pSphere3 pCone1 BranchArm pCylinder1 pSphere1 pSphere2;
+polyUnite -ch 0 -mergeUVSets 1 -centerPivot -name BigSnowMan;
+
+select BigSnowMan;
+move -r 0 -14.820107 -2.461836 BigSnowMan.scalePivot BigSnowMan.rotatePivot;
