@@ -1,0 +1,15 @@
+SelectAllClusters;
+string $clusters[] = `ls -sl`;
+int $size;
+select -d;
+for($size = 0; $size < size($clusters); $size++)
+{
+
+    select -d;
+    joint -p 0 0 0 -rad 4;
+
+    select -tgl $clusters[$size]; 
+    matchTransform -pos;
+
+}
+DeleteAllClusters;
