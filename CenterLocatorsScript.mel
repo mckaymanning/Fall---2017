@@ -1,0 +1,12 @@
+//SelectAllClusters;
+
+{
+string $objs[] = `ls -sl`;
+for ($i = 0; $i < size($objs); $i++)
+
+    {
+        xform -cp $objs[$i];
+        spaceLocator -n ("loc"+$i) -p 0 0 0;
+        matchTransform ("loc"+$i) $objs[$i];
+    }
+}    
