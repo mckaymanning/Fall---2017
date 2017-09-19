@@ -1,0 +1,25 @@
+SelectAllJoints;
+
+string $JointList[] = `ls -sl`;
+string $GroupList[];
+int $count;
+
+for($count=0; $count<size($JointList); $count++){
+  select-d;
+  select $JointList[$count];
+  //joint -e -oj xzy -secondaryAxisOrient xup -ch -zso;
+  circle -n name[$count+1]Cntrl -ch on -nr 0 1 0 -r 5;
+  group -n name[$count+1]Grp;
+  select -r ("name_" + ($count+1) +"_Grp");
+  select -tgl  $JointList[$count];
+  matchTransform;
+  if($count>0){
+  select -r ("name_" + ($count+1) +"_Grp");
+  select -tgl ("name_" + $count +"_Cntrl");
+  parent;
+  }
+  select -r ("name_" + ($count+1) + "_Cntrl");
+  select -tgl ("joint" +($count+1));
+  parentConstraint;
+  }
+    

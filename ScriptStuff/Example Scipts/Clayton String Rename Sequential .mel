@@ -1,0 +1,33 @@
+proc string[] Rename(string $name)
+{
+    //string $sels[] = `ls -sl`;
+    //string $name = "Test_#_Geo";
+    string $buffer[];
+    int $numTokens;
+    string $returnNames[];
+    
+    
+    $numTokens = `tokenize $name "#" $buffer`;
+   
+    if ($numTokens != 2){
+        //Stops script
+        error("Too much hash!");
+        // Continues to run. 
+        //warning("Too much hash!");
+    }
+    
+    for($i=0; $i<size($sels); $i++;){
+        
+        string $newName;
+        $newName = $buffer[0] + ($i+1) + $buffer[1];
+        
+        stringArrayInsertAtIndex(size($returnNames), $returnNames,
+                                        `rename $sels[$i] $newName`);
+    }
+    
+    
+    return $returnNames[];
+    
+}
+
+Rename("WakeUp_#_You Dummies");

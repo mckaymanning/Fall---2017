@@ -1,0 +1,19 @@
+
+proc Randomize (int $num, int $xRange, int $yRange, int $zRange){
+    string $sels[] = `ls -sl`;
+    
+    for ($i=0; $i<size ($sels); $i++){
+        
+        for ($j=0; $j<$num; $j++){
+            float $xPos = `rand ($xRange*-1) $xRange`;
+            float $yPos = `rand ($yRange*-1) $yRange`;
+            float $zPos = `rand ($zRange*-1) $zRange`;
+            
+            string $obj[] = `duplicate -rr $sels[$i]`;
+            move $xPos $yPos $zPos $obj[0];
+            
+        }            
+    }
+}
+// Number of Duplicates, xRange, yRange, zRange
+Randomize (10, 10, 10, 0);
