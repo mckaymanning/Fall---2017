@@ -1,0 +1,51 @@
+proc AutoFK()
+{
+SelectAllJoints;
+    
+string $jointList[] = `ls -sl`;
+string $controlList[];
+int $joints;
+string $groupList[];
+string $newName;
+string $buffer[];
+
+    
+tokenize $jointList[0] "_" $buffer;
+$newName = $buffer[0];
+    
+    for ($joints = 0; $joints < size($jointList); $joints++)
+    { 
+        select $jointList[$joints];
+        circle -n ($newName + ($joints+1) +"_Ctrl") -ch 0 -r 2;
+        string $grp = `group -n ($newName + "_" + ($joints+1) + "_Grp")`;
+        $groupList[$joints] = $grp;
+        
+        select -r $grp;
+        select -tgl $jointList[$joints];
+        matchTransform;
+    }
+    
+    SelectAllNURBSCurves; 
+    string $ctrlList[] = `ls -sl`;
+    
+    for ($i = 0; $i < size($ctrlList)-1; $i++)
+    {
+       parent $groupList[$i+1] $ctrlList[$i];
+    }
+    
+    
+    for ($j = 0; $j < size($ctrlList); $j++)
+    {
+        select -r $ctrlList[$j];
+        select -tgl $jointList[$j];
+        parentConstraint; 
+        scaleConstraint; 
+    }
+    
+select $groupList[0];
+group -n ($newName + "_Controls");
+select $jointList[0];
+group -n ($newName + "_Skeleton");
+
+}
+AutoFK();

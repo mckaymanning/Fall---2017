@@ -1,0 +1,39 @@
+proc AutoFK()
+{
+    SelectAllJoints;
+     
+    string $jointList[] = `ls -sl`;
+    string $controlList[];
+    int $joints;
+    string $groupList[];
+    
+    for ($joints = 0; $joints < size($jointList); $joints++)
+    { 
+        select $jointList[$joints];
+        circle -n Joint[$joints+1]Ctrl -c 0 0 0 -r 2;
+        group -n Joint[$joints+1]Grp;
+        $groupList[$joints] = ("Joint_" +($joints + 1)+ "_Grp");
+        select -r("Joint_" + ($joints + 1) +"_Grp");
+        select -tgl $jointList[$joints];
+        matchTransform;
+    
+    }
+    
+    SelectAllNURBSCurves; 
+    string $ctrlList[] = `ls -sl`;
+    
+    for ($i = 0; $i < size($ctrlList)-1; $i++)
+    {
+       parent $groupList[$i+1] $ctrlList[$i];
+    }
+    
+    
+    for ($j = 0; $j < size($ctrlList); $j++)
+    {
+        select -r $ctrlList[$j];
+        select -tgl $jointList[$j];
+        parentConstraint; //-mo -wieght 1;
+        scaleConstraint; //-offset 1 1 1 -weight 1;
+    }
+}
+AutoFK();

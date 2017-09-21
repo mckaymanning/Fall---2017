@@ -1,0 +1,50 @@
+SelectAllJoints;
+ 
+string $jointList[] = `ls -sl`;
+string $controlList[];
+int $joints;
+int $size;
+string $arrayBuffer[];
+string $newString;
+string $groupList[];
+
+for ($joints = 0; $joints < size($jointList); $joints++)
+{
+    
+    
+    select $jointList[$joints];
+    circle -n Joint[$joints+1]Ctrl -c 0 0 0 -r 2;
+    group -n Joint[$joints+1]Grp;
+    $groupList[$joints] = ("Joint_" +($joints + 1)+ "_Grp");
+    select -r("Joint_" + ($joints + 1) +"_Grp");
+    select -tgl $jointList[$joints];
+    matchTransform;
+    
+//for ($size = 0; $size < size($sizeList); $size++)
+//{
+//    clear $buffer;
+//    $newString = $buffer[0];
+//    for (i)
+//    
+//}
+    
+    //group -n ("Grp " + ($i+1));
+    //rename $objs + ($i+1);
+    //doGroup 0 1 1;
+
+   // select -tgl $jointList[$i];
+   // matchTransform;
+}
+
+SelectAllNURBSCurves; 
+string $ctrlList[] = `ls -sl`;
+
+for ($i = 0; $i < size($ctrlList); $i++)
+{
+   select $ctrlList[$i];
+   parent $groupList[$i+1] $ctrlList[$i];
+  //print ($ctrlList[$i]+"\n");
+  //print ($groupList[$i]+"\n");
+}
+
+
