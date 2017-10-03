@@ -1,0 +1,58 @@
+//BY THURSDAY
+//Build a window that:
+
+//DeleteHistory
+//Freeze Xform
+//CenterPivot
+//Parent ScaleConstraint
+
+
+
+global proc ControlWindow()
+{
+    string $mWindow = "ctrlWindow";
+    
+    if (`window -title $mWindow` == true)
+        deleteUI - window $mWindow;
+    
+    $mWindow = `window -title "Control Creator!" $mWindow`);
+    string $mainColumn = `columnLayout -adjustableColumn 1 -parent $mWindow`;
+    string $circleBtn = `button -parent $mainColumn 
+                                -command "CreateControl(\"circle\", " + $textField + ", " + floatField + ")"
+    string $squareBtn = `button -parent $mainColumn`;
+    string $cubeBtn = `button -parent $mainColumn`;
+    string $txtField = `textFieldGrp -parent $mainColumn -label "Control Name"`;
+    string $floatField =`floatSliderGrp -parent $mainColumn -label "Size" -minValue 0 -maxValue 20 -field 1 -value 1`;
+    
+    
+showWindow($mWindow);
+      
+}
+
+
+global proc CreatControl(string $type, string $nameField, string $scaleField)
+{
+    string $ctrl;
+    stromg $name;
+    
+    
+    
+    if (type == "circle")
+    {
+     string $tCtrl[] = `circle -c 0 0 0 -nr 0 1 0 -sw 360 -r 1 -d 3 -ut 0 -tol 0.01 -s 8 -ch 1; objectMoveCommand`;
+     $ctrl = $ctrl[0];   
+    }
+    
+    else if ($type == "square")
+    {
+        $ctrl = `curve c 0 0 0 -nr 0 1 0 -sl1 1 -sl2 1 -sps 1 -d 3 -ch 1 ; objectMoveCommand`;
+    }
+    
+    else if ($type == "cube")
+    {
+        $ctrl = `curve -p 0 0 0 -ax 0 1 0 -w 1 -lr 1 -hr 1 -d 3 -u 1 -v 1 -ch 1; objectMoveCommand`;
+    }
+    
+    $ctrl = `rename $ctrl $name`;
+    delete -ch $ctrl;
+}
